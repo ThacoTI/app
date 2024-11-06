@@ -1,0 +1,94 @@
+<!--<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar Cobrança PIX</title>
+</head>
+<body>
+    <h1>Gerar Cobrança PIX</h1>
+    <form action="/criar-cobranca" method="POST">
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" required>
+        
+        <label for="valor">Valor:</label>
+        <input type="text" id="valor" name="valor" required>
+
+        <button type="submit">Gerar Cobrança</button>
+    </form>
+    <form  *action="/criar-cobranca" method="POST" id="cobrançaForm">
+        <input type="text" name="cpf" placeholder="CPF" required>
+        <input type="text" name="valor" placeholder="Valor" required>
+        <button type="submit">Cobrar</button>
+    </form>
+    <div id="linkContainer"></div>
+    <script>
+        const form = document.getElementById('cobrançaForm');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            fetch('/criar-cobranca', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const linkContainer = document.getElementById('linkContainer');
+                linkContainer.innerHTML = `<a href="${data.link}" target="_blank">Visualizar</a>`;
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        });
+    </script>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar Cobrança</title>
+</head>
+<body>
+    <form id="cobrançaForm">
+        <input type="text" name="cpf" placeholder="CPF" required>
+        <input type="number" name="valor" placeholder="Valor" required>
+        <button type="submit">Criar Cobrança</button>
+    </form>
+
+    <div id="linkContainer"></div>
+
+    <script>
+        const form = document.getElementById('cobrançaForm');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            fetch('/criar-cobranca', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const linkContainer = document.getElementById('linkContainer');
+                linkContainer.innerHTML = `<a href="${data.link}" target="_blank">Visualizar</a>`;
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        });
+    </script>
+</body>
+</html>
+
